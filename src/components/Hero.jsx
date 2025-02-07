@@ -8,7 +8,7 @@ const Hero = () => {
             <img
                 src={Banner}
                 alt="Hero Banner"
-                className="w-full h-auto object-cover md:h-[500px] lg:h-[600px]"
+                className="w-full h-[300px] object-cover sm:h-[500px] "
             />
 
             {/* Dark Overlay */}

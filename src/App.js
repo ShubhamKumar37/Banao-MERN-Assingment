@@ -1,12 +1,13 @@
 
 import './App.css';
-import { Hero, NavBar } from './components';
+import { Blogs, Hero, NavBar } from './components';
 
 function App() {
   return (
-    <div className="h-screen max-h-full w-screen flex flex-col">
+    <div className="h-screen max-h-full w-full flex flex-col">
       <NavBar />
       <Hero />
+      <Blogs />
     </div>
   );
 }
