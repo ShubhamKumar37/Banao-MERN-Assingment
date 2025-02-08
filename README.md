@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Information
+
+This project is a MERN stack application that provides a blogging platform. Users can create, edit, and delete blog posts. The project is deployed and can be accessed [here](https://atgblog.netlify.app/).
+
 ## Available Scripts
 
 In the project directory, you can run:
