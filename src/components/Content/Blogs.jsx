@@ -3,6 +3,7 @@ import JoinButtons from './JoinButtons';
 import { cardData } from '../../data/BlogData';
 import BlogCard from './BlogCard';
 import SetLocation from './SetLocation';
+import RecommendedGroups from './RecommendedGroups';
 
 
 const tags = ["All Posts", "Article", "Event", "Education", "Job"];
@@ -24,8 +25,8 @@ const Blogs = () => {
     }, []);
 
     return (
-        <div className='w-full sm:w-10/12 mx-auto flex flex-col gap-7'>
-            <div className='flex flex-col sm:flex-row justify-between items-center p-[1rem] border-b-2 border-gray-700'>
+        <div className='w-full sm:w-11/12 mx-auto flex flex-col gap-7'>
+            <div className='flex flex-col md:flex-row justify-between items-center gap-2 p-[1rem] border-b-2 border-gray-700'>
                 <ul className='flex flex-wrap sm:flex-row gap-7'>
                     {
                         tags.map((item, index) => {
@@ -33,7 +34,7 @@ const Blogs = () => {
                                 <li
                                     onClick={() => changeTagHandler(item)}
                                     key={index}
-                                    className={`${item === selectedTag ? "font-[500]" : ""} text-xl cursor-pointer`}>
+                                    className={`${item === selectedTag ? "font-[500]" : ""} md:text-xl text-sm cursor-pointer`}>
                                     {item + " (" + (index === 0 ? cardData.length : getLength(item)) + ") "}
                                 </li>)
                         })
@@ -46,20 +47,23 @@ const Blogs = () => {
             </div>
 
             <div className='flex flex-col sm:flex-row w-full gap-5'>
-                <div className='w-full sm:w-7/10'>
+                <div className='w-full flex flex-col gap-5'>
                     {
                         cardData.filter((item) => {
                             if (selectedTag === "All Posts") return true;
                             if (item.tag === selectedTag) return true;
                             return false;
                         }).map((item, index) => {
-                            return (<BlogCard key={index} item={item} />)
+                            return (
+                                <BlogCard key={index} item={item} />
+                            )
                         })
                     }
                 </div>
 
-                <div className="w-full sm:w-[30%]">
+                <div className="flex flex-col gap-[1rem] w-full sm:w-[34%]">
                     <SetLocation />
+                    <RecommendedGroups />
                 </div>
             </div>
         </div>

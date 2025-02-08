@@ -60,9 +60,7 @@ const NavBar = () => {
                         <span className='mr-2'>Create account.</span>
                         <span className='text-blue-500 cursor-pointer hidden sm:block font-bold'>It's Free</span>
                 </button>
-                <span className='absolute top-full right-0 mt-1 text-sm text-green-600 opacity-0 group-hover:opacity-100 transition-opacity'>
-                    It's free!
-                </span>
+                
             </div>
 
             <AuthModal isOpen={showModal} onClose={closeModal} />
