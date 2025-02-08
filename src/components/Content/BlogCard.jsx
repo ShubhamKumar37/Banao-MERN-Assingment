@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaEye, FaCalendarAlt, FaMapMarkerAlt, FaEllipsisH } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
 
 const BlogCard = ({ item }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const modalRef = useRef(null);
+    const buttonRef = useRef(null);
+
+    // Close modal if clicked outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // Close modal if click is outside of the modal or button
+            if (modalRef.current && !modalRef.current.contains(event.target) && !buttonRef.current.contains(event.target)) {
+                setIsModalOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
-        <div className=" bg-white shadow-lg rounded-lg overflow-hidden border p-4 w-full max-w-[45rem] relative">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden border p-4 w-full max-w-[45rem] relative">
             {item.image && <img src={item.image} alt="banner" className="w-full h-48 object-cover rounded-lg" />}
 
             <div className="p-4 flex flex-col gap-2">
@@ -28,32 +46,31 @@ const BlogCard = ({ item }) => {
 
                 {item.desc && <p className="text-gray-700 mt-2">{item.desc}</p>}
 
-                <div className="flex flex-col sm:flex-row items-center justify-between mt-3">
-
-                    <div className="flex  items-center justify-between gap-3">
-                        <span className="flex items-center text-gray-500 gap-1 text-sm">
+                <div className="flex flex-col sm:flex-row justify-between mt-3">
+                    <div className="flex items-center justify-between gap-3">
+                        <span className="flex text-gray-500 gap-1 text-sm">
                             <FaEye /> 1.4k views
                         </span>
                         <button
+                            ref={buttonRef}
                             className="relative text-gray-500 hover:bg-gray-200 p-2 rounded-full"
-                            onMouseEnter={() => setIsModalOpen(true)}
-                            onMouseLeave={() => setIsModalOpen(false)}
+                            onClick={() => setIsModalOpen(!isModalOpen)}
                         >
+                            <FaEllipsisH />
                             {isModalOpen && (
                                 <div
-                                    onMouseEnter={() => setIsModalOpen(true)}
-                                    onMouseLeave={() => setIsModalOpen(false)}
-                                    className="absolute right-0 bg-white p-2 rounded-lg shadow-lg w-48 flex flex-col gap-2 top-[-2rem]">
+                                    ref={modalRef}
+                                    className="absolute right-0 bg-white p-2 rounded-lg shadow-lg w-48 flex flex-col gap-2 top-[-2rem]"
+                                >
                                     <button className="text-sm text-gray-700 hover:font-bold">Edit</button>
                                     <button className="text-sm text-gray-700 hover:font-bold">Report</button>
                                     <button className="text-sm text-gray-700 hover:font-bold">Option 3</button>
                                 </div>
                             )}
-                            <FaEllipsisH />
                         </button>
+
                     </div>
                 </div>
-
 
                 {item.buttonText && (
                     <button className="mt-3 border-2 p-2 w-full text-lg rounded-lg text-green-600 hover:font-bold">
@@ -73,7 +90,6 @@ const BlogCard = ({ item }) => {
                             Share
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
